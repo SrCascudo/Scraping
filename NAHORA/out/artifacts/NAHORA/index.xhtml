@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+<h:head>
+    <title>NAHORA Notícias</title>
+</h:head>
+
+<h:body>
+    <div class="card" style="min-height: 175px; padding: 5%">
+        <p:outputPanel deferred="true">
+            <h3>NAHORA Notícias</h3>
+
+            <h:form id="IDform">
+                <p:panelGrid columns="2"
+                             layout="grid"
+                             styleClass="showcase-text-align-center"
+                             id="IDgrid">
+                    <h:panelGroup>
+                        <h4>Assunto</h4>
+                        <span class="ui-input-icon-left">
+                        <i class="pi pi-search"/>
+                        <p:inputText id="IDassunto" placeholder="Search" value="#{indexController.fieldAssunto}">
+                            <p:ajax process="IDassunto"/>
+                        </p:inputText>
+                    </span>
+                    </h:panelGroup>
+
+                    <p:outputPanel>
+                        <h4>Fontes</h4>
+                        <p:selectCheckboxMenu id="IDfonte" value="#{indexController.fieldFonte}"
+                                              label="Fontes" style="min-width: 15rem"
+                                              multiple="true" filter="true" filterMatchMode="startsWith"
+                                              panelStyle="width: 30rem" scrollHeight="250"
+                                              emptyLabel="Selecione uma fonte" updateLabel="true">
+                            <p:ajax process="IDfonte"/>
+                            <f:selectItems var="fonte"
+                                           value="#{indexController.listaFonte()}"
+                                           itemValue="#{fonte}"
+                                           itemLabel="#{fonte.label}"/>
+                        </p:selectCheckboxMenu>
+                    </p:outputPanel>
+                </p:panelGrid>
+
+                <p:commandButton
+                        type="submit"
+                        value="Buscar"
+                        action="#{indexController.buscarNoticia()}"
+                        process="@this, IDform"
+                />
+            </h:form>
+        </p:outputPanel>
+    </div>
+</h:body>
+</html>
